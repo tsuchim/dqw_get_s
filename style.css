@@ -1,0 +1,36 @@
+#dqw_kokoro_simulator input {
+    width: 5em;
+    text-align: right;
+}
+
+#dqw_kokoro_simulator button {
+    text-align: center;
+}
+
+#dqw_kokoro_simulator textarea {
+    font-size: 10px;
+    width: 100%;
+    height: 10em;
+}
+
+#dqw_kokoro_result td, #dqw_kokoro_simulator td {
+    text-align: center;
+    font-size: 16px;
+}
+#dqw_kokoro_result td span, #dqw_kokoro_simulator td span {
+    text-align: right;
+    width: 8em;
+    display: inline-block;
+}
+#dqw_kokoro_result th, #dqw_kokoro_simulator th {
+    text-align: center;
+    font-size: 16px;
+}
+
+#id_upgr_4 input {
+    border: solid 2px #112211;
+}
+
+#id_hold_0 input, #id_hold_1 input, #id_hold_2 input, #id_hold_3 input, #id_hold_4 input {
+    border-style: solid;
+}
