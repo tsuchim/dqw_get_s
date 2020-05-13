@@ -3,71 +3,29 @@
 Plugin Name: DQW plugin for Eikai
 Plugin URI: https://eikai.co.jp/
 Description: ドラクエウォーク用のツール
-Version: 0.0.1
+Version: 0.0.2
 Author: Yuji Tsuchimoto <yuji@eikai.co.jp>
 Author URI: http://eikai.co.jp/tsuchim/
 License: Closed
  */
 
 class EIKAI_DQW {
-  // 定数
-  const DATADIR = '/var/www/eikai-wp/include/carp'; // Data Directory
-  // データ
-  private $prop_rank = array(); // 順位確率
-
   // 初期化
   public function __construct(){
     add_action('init', array($this,'register_eikai_dqw_shortcodes')); //shortcodes
   }
-  // データの読込
-  private function load_data() {
-    for( $i = 0 ; $i < 2 ; $i++ ) {
-      $filename = sprintf('%s/r_%d.out.dat', self::DATADIR, $i);
-      $lines = preg_split('/[\n\r]+/',file_get_contents($filename));
-      $this->prop_rank[$i] = array();
-      foreach( $lines as $line ) {
-        $this->prop_rank[$i][] = preg_split('/\t+/',$line);
-      }
-    }
-  }
-
-  // セルの色のクラス分け
-  public static function getClassByPercent( $p ) {
-    $c = '';
-    if(      $p ==  0.0 ) { $c = 'r01'; }
-    else if( $p <   1.0 ) { $c = 'r05'; }
-    else if( $p <   5.0 ) { $c = 'r20'; }
-    else if( $p ==100.0 ) { $c = 'r99'; }
-    else if( $p >= 99.0 ) { $c = 'r95'; }
-    else if( $p >= 95.0 ) { $c = 'r80'; }
-    else if( $p >= 90.0 ) { $c = 'r70'; }
-    else if( $p >= 75.0 ) { $c = 'r60'; }
-    return $c;
-  }
 
   // ショートコード
-  //location shortcode
   public function register_eikai_dqw_shortcodes(){
     add_shortcode('eikai_dqw_kokoro_simulator', array($this,'eikai_dqw_kokoro_simulator_shortcode_output'));
   }
-  // ファイルを読み込む
-  public function eikai_dqw_include_shortcode_output($atts, $content = '', $tag){
-    extract( shortcode_atts( array(
-      'file' => '', 
-      ), $atts ) );
-    $html = file_get_contents( self::DATADIR . '/' . $file );
-    if( $content ) {
-      return sprintf($content,$html);
-    }else{
-      return $html;
-    }
-  }
-
+  
   // HTMLを生成
   public function eikai_dqw_kokoro_simulator_shortcode_output($atts, $content = '', $tag){
     $ranks = array( 4=>'S', 3=>'A', 2=>'B', 1=>'C', 0=>'D' );
-
-    print <<<EOT
+    $html = '';
+    
+    $html .= <<<EOT
 <link rel="stylesheet" href="/wp-content/plugins/eikai_dqw/style.css" type="text/css" media="screen">
 <script src="/wp-content/plugins/eikai_dqw/sim.js" defer></script>
 <form name="dqw_kokoro_simulator" id="dqw_kokoro_simulator">
@@ -98,7 +56,7 @@ EOT;
     $idn = 0;
     foreach( $ranks as $rank => $name ) {
       $idx++;
-      print <<<EOT
+      $html .= <<<EOT
   <tr>
    <td>$name</td>
    <td id="id_prob_$rank"><input type="text" name="prob_$rank" tabindex="3$idx"></td>
@@ -107,7 +65,7 @@ EOT;
   </tr>
 EOT;
     }
-    print <<<EOT
+    $html .= <<<EOT
  </tbody>
 </table>
 <hr>
@@ -143,8 +101,9 @@ EOT;
 </div>
 <hr>
 EOT;
+    return $html;
   }
-};
+}
 
 // インスタンスを生成
 $eikai_dqw = new EIKAI_DQW;
