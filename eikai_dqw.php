@@ -30,7 +30,7 @@ class EIKAI_DQW {
 <script src="/wp-content/plugins/eikai_dqw/sim.js" defer></script>
 <form name="dqw_kokoro_simulator" id="dqw_kokoro_simulator">
 プリセット :
-<select name="param_preset" onChange="return on_change_param_preset(this);">
+<select name="param_preset" tabindex="1" onChange="return on_change_param_preset(this);">
  <option value="-">-</option>
  <option value="mega1">メガモンスター1 (りゅうおう・トロル)</option>
  <option value="mega2">メガモンスター2 (バラモス・ゾーマ)</option>
@@ -69,22 +69,22 @@ EOT;
  </tbody>
 </table>
 <hr>
-<button type="button" name="calc" onClick="on_click_calc(this);return false;">計算</button>
+<button type="button" name="calc" tabindex="19" onClick="on_click_calc(this);return false;">計算</button>
 <span id="dqw_calc_status"></span>
 </form>
 <hr>
 <table id="dqw_kokoro_result">
  <thead>
-  <tr><th>引きの強さ</th><th>ドロップ回数</th></tr>
+  <tr><th>運の強さ</th><th>ドロップ回数</th></tr>
  </thead>
  <tbody>
-  <tr><td>最強</td><td><span id="res_0">-</span></td></tr>
-  <tr><td>ぶち良い</td><td><span id="res_1">-</span></td></tr>
-  <tr><td>やや良い</td><td><span id="res_2">-</span></td></tr>
-  <tr><td>普通</td><td><span id="res_3">-</span></td></tr>
-  <tr><td>やや悪い</td><td><span id="res_4">-</span></td></tr>
-  <tr><td>ぶち悪い</td><td><span id="res_5">-</span></td></tr>
-  <tr><td>最悪</td><td><span id="res_6">-</span></td></tr>
+  <tr><td>ベスト</td><td><span id="res_0">-</span></td></tr>
+  <tr><td>上位 5%</td><td><span id="res_1">-</span></td></tr>
+  <tr><td>上位25%</td><td><span id="res_2">-</span></td></tr>
+  <tr><td>中央値</td><td><span id="res_3">-</span></td></tr>
+  <tr><td>下位25%</td><td><span id="res_4">-</span></td></tr>
+  <tr><td>下位 5%</td><td><span id="res_5">-</span></td></tr>
+  <tr><td>ワースト</td><td><span id="res_6">-</span></td></tr>
  </tbody>
 </table>
 <hr>
